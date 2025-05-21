@@ -1,18 +1,24 @@
 package com.Coaios.AISocialMedia.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+@SuppressWarnings("unused")
 @Entity
 @Data @AllArgsConstructor @NoArgsConstructor @Builder
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
 public class Post {
 
     @Id
@@ -27,10 +33,10 @@ public class Post {
 
     private int likes;
 
-    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
 
-    private LocalDateTime datePub;
+    private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id", nullable = false)
@@ -40,7 +46,7 @@ public class Post {
     @PrePersist
     protected void onCreate() {
         LocalDateTime now = LocalDateTime.now();
-        this.datePub = now;
+        this.createdAt = now;
     }
 
     public User getUser() {
@@ -51,12 +57,12 @@ public class Post {
         this.user = user;
     }
 
-    public LocalDateTime getDatePub() {
-        return datePub;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
-    public void setDatePub(LocalDateTime datePub) {
-        this.datePub = datePub;
+    public void setCreatedAt(LocalDateTime datePub) {
+        this.createdAt = datePub;
     }
 
     public List<Comment> getComments() {
@@ -89,5 +95,13 @@ public class Post {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

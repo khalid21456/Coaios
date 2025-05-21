@@ -11,11 +11,11 @@ public class AiSocialMediaApplication {
 	public static void main(String[] args) {
 
 		SpringApplication.run(AiSocialMediaApplication.class, args);
-		/*
-		ApplicationContext context = SpringApplication.run(AiSocialMediaApplication.class, args);
 
+		//ApplicationContext context = SpringApplication.run(AiSocialMediaApplication.class, args);
+/*
 		// Get the bean from Spring context instead of using "new"
-		FlickService flickService = context.getBean(FlickService.class);
+		FlickService flickService = new FlickService();
 
 		// Run your task in a separate thread
 		new Thread(() -> {
@@ -29,7 +29,7 @@ public class AiSocialMediaApplication {
 				}
 			}
 		}).start();
-	*/
+*/
 	}
 
 }

@@ -2,14 +2,19 @@ package com.Coaios.AISocialMedia.service;
 
 
 import com.Coaios.AISocialMedia.agents.Flick;
+import com.Coaios.AISocialMedia.domain.dtos.CommentDTO;
 import com.Coaios.AISocialMedia.domain.dtos.PostDTO;
+import com.Coaios.AISocialMedia.domain.entities.Comment;
 import com.Coaios.AISocialMedia.domain.entities.Post;
 import com.Coaios.AISocialMedia.domain.entities.User;
+import com.Coaios.AISocialMedia.repository.CommentRepo;
 import com.Coaios.AISocialMedia.repository.PostRepo;
 import com.Coaios.AISocialMedia.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.stereotype.Service;
+
+import java.util.Iterator;
+import java.util.List;
 
 @SuppressWarnings("unused")
 @Service
@@ -17,6 +22,9 @@ public class FlickService {
 
     @Autowired
     private PostRepo postRepo;
+
+    @Autowired
+    private CommentRepo commentRepo;
 
     @Autowired
     private Flick agentFlick;
@@ -33,7 +41,20 @@ public class FlickService {
         post.setUser(user);
         post.setLikes(0);
         postRepo.save(post);
+        post.getUser().setPosts(null);
+        List<Comment> comments = post.getComments();
+        Iterator<Comment> iter = comments.iterator();
+        Comment tempComment = null;
+        while(iter.hasNext()) {
+            tempComment = iter.next();
+            tempComment.getUser_comment().setPosts(null);
+            tempComment.setPost(null);
+        }
         return post;
+    }
+
+    public CommentDTO commentPost() {
+        return agentFlick.commentPost();
     }
 
 }
