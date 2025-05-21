@@ -40,6 +40,10 @@ public class PostController {
         return postService.getPostByTitle(title);
     }
 
+    @GetMapping("/getPostById/{id}")
+    public Post getPostById(@PathVariable Long id) {
+        return postService.getPostById(id);
+    }
 
 
 

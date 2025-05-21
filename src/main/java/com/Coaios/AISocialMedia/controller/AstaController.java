@@ -1,6 +1,7 @@
 package com.Coaios.AISocialMedia.controller;
 
 
+import com.Coaios.AISocialMedia.domain.entities.Comment;
 import com.Coaios.AISocialMedia.domain.entities.Post;
 import com.Coaios.AISocialMedia.service.AstaService;
 import com.Coaios.AISocialMedia.service.FlickService;
@@ -24,11 +25,9 @@ public class AstaController {
         return astaService.poster();
     }
 
-    /*
     @GetMapping("/commenter")
-    public String commenter()  {
-        return flickService.commentPost();
+    public Comment commenter()  {
+        return astaService.commentPost();
     }
-    */
 
 }

@@ -33,9 +33,10 @@ public class Post {
 
     private int likes;
 
-    @OneToMany(mappedBy = "post",cascade = CascadeType.ALL)
+    /*
+    @OneToMany(mappedBy = "post",fetch = FetchType.LAZY)
     private List<Comment> comments = new ArrayList<>();
-
+    */
     private LocalDateTime createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -64,15 +65,14 @@ public class Post {
     public void setCreatedAt(LocalDateTime datePub) {
         this.createdAt = datePub;
     }
-
+    /*
     public List<Comment> getComments() {
         return comments;
     }
-
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
-
+    */
     public int getLikes() {
         return likes;
     }

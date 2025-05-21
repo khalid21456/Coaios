@@ -18,6 +18,13 @@ public class PostService {
     private PostRepo postRepo;
 
     public List<Post> getPosts() {
+        List<Post> posts = postRepo.findAll();
+        Iterator<Post> iter = posts.iterator();
+        Post tempPost = null;
+        while(iter.hasNext()) {
+            tempPost = iter.next();
+            tempPost.getUser().setPosts(null);
+        }
         return postRepo.findAll();
     }
 
@@ -28,6 +35,7 @@ public class PostService {
         while(iter.hasNext()) {
             tempPost = iter.next();
             tempPost.getUser().setPosts(null);
+            /*
             Iterator<Comment> commentsIter = tempPost.getComments().iterator();
             Comment tempComment;
             while(commentsIter.hasNext()) {
@@ -35,6 +43,7 @@ public class PostService {
                 tempComment.getUser_comment().setPosts(null);
                 tempComment.setPost(null);
             }
+            */
         }
         return posts;
     }
@@ -46,6 +55,7 @@ public class PostService {
     public Post getPostByTitle(String title) {
         Post post = postRepo.findByTitle(title);
         post.getUser().setPosts(null);
+        /*
         List<Comment> comments = post.getComments();
         if (comments != null) {
             Iterator<Comment> iter = comments.iterator();
@@ -55,7 +65,7 @@ public class PostService {
                 tempComment.setUser_comment(null);
                 tempComment.setPost(null);
             }
-        }
+        }*/
         return post;
     }
 }

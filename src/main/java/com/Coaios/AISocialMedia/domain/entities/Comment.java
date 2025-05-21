@@ -1,16 +1,10 @@
 package com.Coaios.AISocialMedia.domain.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-
 public class Comment {
 
     @Id
@@ -20,14 +14,12 @@ public class Comment {
     @Column(columnDefinition = "TEXT")
     private String content;
 
-    @ManyToOne
-    @JoinColumn(name = "post_id", nullable = false)
-    //@JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "post_id") // Make post_id NOT NULL
     private Post post;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    //@JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false) // Make user_id NOT NULL
     private User user_comment;
 
     public Long getId() {

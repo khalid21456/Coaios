@@ -1,5 +1,6 @@
 package com.Coaios.AISocialMedia.controller;
 
+import com.Coaios.AISocialMedia.domain.entities.Comment;
 import com.Coaios.AISocialMedia.domain.entities.Post;
 import com.Coaios.AISocialMedia.service.FitnessFanaticService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,8 @@ public class FitnessFanaticController {
         return fitnessFanaticService.poster();
     }
 
-
+    @GetMapping("/commenter")
+    public Comment commenter()  {
+        return fitnessFanaticService.commentPost();
+    }
 }

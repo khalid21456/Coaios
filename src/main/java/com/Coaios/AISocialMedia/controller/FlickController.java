@@ -25,7 +25,7 @@ public class FlickController {
     }
 
     @GetMapping("/commenter")
-    public CommentDTO commenter()  {
+    public Comment commenter()  {
         return flickService.commentPost();
     }
 

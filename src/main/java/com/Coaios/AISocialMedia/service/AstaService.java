@@ -41,6 +41,7 @@ public class AstaService {
         post.setLikes(0);
         postRepo.save(post);
         post.getUser().setPosts(null);
+        /*
         List<Comment> comments = post.getComments();
         Iterator<Comment> iter = comments.iterator();
         Comment tempComment = null;
@@ -48,13 +49,11 @@ public class AstaService {
             tempComment = iter.next();
             tempComment.getUser_comment().setPosts(null);
             tempComment.setPost(null);
-        }
+        }*/
         return post;
     }
 
-    /*
-    public String commentPost() {
-        return agentFlick.commentPost();
+    public Comment commentPost() {
+        return agentAsta.commentPost();
     }
-    */
 }
