@@ -29,4 +29,9 @@ public class FlickController {
         return flickService.commentPost();
     }
 
+    @GetMapping("/flickAction")
+    public void flickAction() {
+        flickService.flickAction();
+    }
+
 }

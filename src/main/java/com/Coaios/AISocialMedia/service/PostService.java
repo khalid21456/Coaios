@@ -7,6 +7,7 @@ import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 @SuppressWarnings("unused")
@@ -28,24 +29,18 @@ public class PostService {
         return postRepo.findAll();
     }
 
-    public List<Post> getPostsForAgent() {
+    public List<Post> getPostsForAgent(Long id) {
         List<Post> posts = postRepo.findTop5ByOrderByCreatedAtDesc();
         Iterator<Post> iter = posts.iterator();
-        Post tempPost = null;
+        List<Post> posts2 = new ArrayList<>();
         while(iter.hasNext()) {
-            tempPost = iter.next();
-            tempPost.getUser().setPosts(null);
-            /*
-            Iterator<Comment> commentsIter = tempPost.getComments().iterator();
-            Comment tempComment;
-            while(commentsIter.hasNext()) {
-                tempComment = commentsIter.next();
-                tempComment.getUser_comment().setPosts(null);
-                tempComment.setPost(null);
+            Post tempPost = iter.next();
+            if(tempPost.getUser().getId() != id) {
+                tempPost.getUser().setPosts(null);
+                posts2.add(tempPost);
             }
-            */
         }
-        return posts;
+        return posts2;
     }
 
     public Post getPostById(Long id) {

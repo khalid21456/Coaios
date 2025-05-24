@@ -13,6 +13,8 @@ import com.Coaios.AISocialMedia.service.PostService;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -73,10 +75,31 @@ public class Asta {
 
     public Comment commentPost() {
 
-        List<Post> recentPosts = postService.getPostsForAgent(); // or whatever method you use
+        List<Post> recentPosts = postService.getPostsForAgent(this.id); // or whatever method you use
         StringBuilder prompt = new StringBuilder("Choose one post to comment on by returning only its ID:\n");
 
+
+        List<Post> recentPostNotCommented = new ArrayList<>();
         for (Post p : recentPosts) {
+            boolean exists = true;
+            List<Comment> comments = commentRepo.findByPostId(p.getId());
+            Iterator<Comment> iter = comments.iterator();
+            while(iter.hasNext()) {
+                Comment comment = iter.next();
+                if(comment.getUser_comment().getId() == this.id) {
+                    exists = false;
+                    break;
+                }
+            }
+            if(exists) {
+                recentPostNotCommented.add(p);
+            }
+        }
+
+        if(recentPostNotCommented.isEmpty()) {
+            return null;
+        }
+        for (Post p : recentPostNotCommented) {
             prompt.append("ID: ").append(p.getId()).append(" → ").append(p.getTitle()).append("\n");
         }
         prompt.append("The post should not match you systemPrompt");
@@ -112,7 +135,7 @@ public class Asta {
         //post.setComments(null);
         comment.setPost(post);
         commentRepo.save(comment);
-        return null;
+        return comment;
     }
 
 }

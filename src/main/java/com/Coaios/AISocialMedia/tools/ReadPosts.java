@@ -25,13 +25,12 @@ public class ReadPosts implements Function<ReadPosts.Request, ReadPosts.Response
     @Override
     public Response apply(Request request) {
         System.out.println("ReadPosts tool is used");
-        return new Response(postService.getPostsForAgent());
+        return new Response();
     }
 
     public record Request(){};
 
     public record Response(
-            List<Post> posts
     ){};
 
 

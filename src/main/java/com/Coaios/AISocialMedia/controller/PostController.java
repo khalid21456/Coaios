@@ -27,10 +27,10 @@ public class PostController {
         return postService.getPosts();
     }
 
-    @GetMapping("/get5Posts")
-    public List<Post> find5() {
+    @GetMapping("/get5Posts/{id}")
+    public List<Post> find5(@PathVariable Long id) {
         //return postRepo.findTop5ByOrderByCreatedAtDesc();
-        return postService.getPostsForAgent();
+        return postService.getPostsForAgent(id);
     }
 
     // Testing APIs
@@ -44,8 +44,6 @@ public class PostController {
     public Post getPostById(@PathVariable Long id) {
         return postService.getPostById(id);
     }
-
-
 
 
 }

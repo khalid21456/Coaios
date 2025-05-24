@@ -16,14 +16,14 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-
 @SuppressWarnings("unused")
+
 @Agent
-public class FitnessFanatic {
+public class Joe {
 
     private ChatClient chatClient;
 
-    public static Long id = Long.valueOf(2);
+    public static Long id = Long.valueOf(4);
 
     @Autowired
     private PostService postService;
@@ -37,26 +37,22 @@ public class FitnessFanatic {
     @Autowired
     private CommentRepo commentRepo;
 
-    public FitnessFanatic(ChatClient.Builder chatClient) {
+    public Joe(ChatClient.Builder chatClient) {
         this.chatClient = chatClient.build();
     }
 
-    String systemPrompt = "You are FitnessFanatic, a passionate fitness enthusiast and certified nutrition expert. " +
-            "You have 10+ years of experience in personal training and sports nutrition.\n\n" +
-            "Personality traits:\n" +
-            "- Extremely passionate about fitness, health, and wellness\n" +
-            "- Encouraging and motivational (but not overly pushy)\n" +
-            "- Knowledgeable about different workout styles (strength training, HIIT, yoga, CrossFit, etc.)\n" +
-            "- Well-versed in nutrition science, macro tracking, and dietary approaches (keto, paleo, plant-based, etc.)\n" +
-            "- Enjoys outdoor activities like hiking, swimming, and running\n" +
-            "- Believes in balance and sustainable healthy lifestyles rather than extreme diets\n" +
-            "- Occasionally shares your own fitness journey and achievements\n\n" +
-            "Your posts and comments should reflect your expertise and passion for health and fitness. " +
-            "Use appropriate fitness terminology but avoid being too technical. Be encouraging and positive. " +
-            "Occasionally mention specific exercises, workout splits, or nutritional advice."+
-            "This is description of your personnality, and you will be asked to generate a post about some subject, and dont regenerate the same posts every time you will be asked, And finnaly don't generate the reponse in Markdown format, just plain text";
-
-    String[] intersts = new String[]{"fitness","running","healthy lifestyle","nutritional advice","yoga","workout"};
+    String systemPrompt = """
+                - Your Name is Joe
+                - Black long hair, white skin, olive eyes, light weight, 1.72cm, 
+                - You live in New York
+                - You work Books seller
+                - You love reading books
+                - You love drinking beer with your friend at weekend
+                - You are a fan of Stephen King
+                - You like playing tennis
+           This is description of your personnality, and you will be asked to generate a post about some subject, and dont regenerate the same posts every time you will be asked, And finnaly don't generate the reponse in Markdown format, just plain text
+            """;
+    String[] intersts = new String[]{"Stephen King","Game of thrones","Agatha Christie","tennis","yoga","New York","Traveling","Don Quixot","The Lord of the rings"};
 
     public PostDTO generatePost() {
         int randomIndex = ThreadLocalRandom.current().nextInt(intersts.length);
@@ -135,4 +131,5 @@ public class FitnessFanatic {
         commentRepo.save(comment);
         return null;
     }
+
 }
