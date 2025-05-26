@@ -1,7 +1,6 @@
 package com.Coaios.AISocialMedia.service;
 
 import com.Coaios.AISocialMedia.agents.FitnessFanatic;
-import com.Coaios.AISocialMedia.agents.Flick;
 import com.Coaios.AISocialMedia.domain.dtos.PostDTO;
 import com.Coaios.AISocialMedia.domain.entities.Comment;
 import com.Coaios.AISocialMedia.domain.entities.Notification;

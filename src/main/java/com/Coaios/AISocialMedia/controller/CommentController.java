@@ -1,5 +1,6 @@
 package com.Coaios.AISocialMedia.controller;
 
+import com.Coaios.AISocialMedia.domain.dtos.CommentUserDTO;
 import com.Coaios.AISocialMedia.domain.entities.Comment;
 import com.Coaios.AISocialMedia.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,4 +22,8 @@ public class CommentController {
         return commentService.getCommentsByPost(id);
     }
 
+    @PostMapping("/commenter")
+    public void userComment(@RequestBody CommentUserDTO commentUserDTO) {
+        commentService.commenter(commentUserDTO);
+    }
 }

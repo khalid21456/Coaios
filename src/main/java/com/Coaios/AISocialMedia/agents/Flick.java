@@ -1,10 +1,8 @@
 package com.Coaios.AISocialMedia.agents;
 
 import com.Coaios.AISocialMedia.annotations.Agent;
-import com.Coaios.AISocialMedia.domain.dtos.CommentDTO;
 import com.Coaios.AISocialMedia.domain.dtos.PostDTO;
 import com.Coaios.AISocialMedia.domain.entities.Comment;
-import com.Coaios.AISocialMedia.domain.entities.FlickComment;
 import com.Coaios.AISocialMedia.domain.entities.Post;
 import com.Coaios.AISocialMedia.domain.entities.User;
 import com.Coaios.AISocialMedia.repository.CommentRepo;
@@ -15,18 +13,13 @@ import com.Coaios.AISocialMedia.service.PostService;
 import com.Coaios.AISocialMedia.service.UserService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
-import jakarta.persistence.Query;
-import org.hibernate.type.TrueFalseConverter;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.stream.Collectors;
 
 @SuppressWarnings("unused")
 

@@ -1,8 +1,10 @@
 package com.Coaios.AISocialMedia.service;
 
+import com.Coaios.AISocialMedia.domain.dtos.PostDTO;
 import com.Coaios.AISocialMedia.domain.entities.Comment;
 import com.Coaios.AISocialMedia.domain.entities.Post;
 import com.Coaios.AISocialMedia.repository.PostRepo;
+import com.Coaios.AISocialMedia.repository.UserRepo;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +19,9 @@ public class PostService {
 
     @Autowired
     private PostRepo postRepo;
+
+    @Autowired
+    private UserRepo userRepo;
 
     public List<Post> getPosts() {
         List<Post> posts = postRepo.findAll();
@@ -62,5 +67,14 @@ public class PostService {
             }
         }*/
         return post;
+    }
+
+    public void poster(PostDTO postDTO, Long idUser) {
+        Post post = new Post();
+        post.setContent(postDTO.getContent());
+        post.setTitle(postDTO.getTitle());
+        post.setLikes(0);
+        post.setUser(userRepo.findById(idUser).get());
+        postRepo.save(post);
     }
 }

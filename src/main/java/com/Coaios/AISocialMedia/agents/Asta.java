@@ -58,7 +58,7 @@ public class Asta {
            This is description of your personnality, and you will be asked to generate a post about some subject, and dont regenerate the same posts every time you will be asked, And finnaly don't generate the reponse in Markdown format, just plain text
             """;
 
-    String[] intersts = new String[]{"One piece","Naruto","Black Clover","Japan","Morrocan Tjine","Jujutsu Kaisen","The Godfather Movie"};
+    String[] intersts = new String[]{"One piece","Naruto","Black Clover","Japan","Morrocan Tajine","Jujutsu Kaisen","The Godfather Movie"};
 
     public PostDTO generatePost() {
         int randomIndex = ThreadLocalRandom.current().nextInt(intersts.length);

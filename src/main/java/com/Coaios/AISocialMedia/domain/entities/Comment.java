@@ -1,5 +1,6 @@
 package com.Coaios.AISocialMedia.domain.entities;
 
+import com.Coaios.AISocialMedia.domain.dtos.CommentUserDTO;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 
@@ -21,6 +22,14 @@ public class Comment {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false) // Make user_id NOT NULL
     private User user_comment;
+
+    public Comment(String content, Post post, User user_comment) {
+        this.content = content;
+        this.post = post;
+        this.user_comment = user_comment;
+    }
+
+    public Comment(){}
 
     public Long getId() {
         return id;

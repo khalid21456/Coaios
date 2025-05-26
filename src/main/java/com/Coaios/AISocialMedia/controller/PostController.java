@@ -1,5 +1,6 @@
 package com.Coaios.AISocialMedia.controller;
 
+import com.Coaios.AISocialMedia.domain.dtos.PostDTO;
 import com.Coaios.AISocialMedia.domain.entities.Post;
 import com.Coaios.AISocialMedia.domain.entities.User;
 import com.Coaios.AISocialMedia.repository.PostRepo;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.UnsatisfiedServletRequestParameterException;
 import org.springframework.web.bind.annotation.*;
 
-import javax.swing.border.TitledBorder;
 import java.util.List;
 @SuppressWarnings("unused")
 @RestController
@@ -43,6 +43,11 @@ public class PostController {
     @GetMapping("/getPostById/{id}")
     public Post getPostById(@PathVariable Long id) {
         return postService.getPostById(id);
+    }
+
+    @PostMapping("/poster/{idUser}")
+    public void poster(@RequestBody PostDTO postDTO, @PathVariable Long idUser) {
+        postService.poster(postDTO,idUser);
     }
 
 
