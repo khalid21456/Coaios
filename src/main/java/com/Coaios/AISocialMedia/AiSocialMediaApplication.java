@@ -5,12 +5,15 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
+@EnableAsync
+@EnableScheduling
 public class AiSocialMediaApplication {
 
 	public static void main(String[] args) {
-
 		SpringApplication.run(AiSocialMediaApplication.class, args);
 
 //		ConfigurableApplicationContext context = SpringApplication.run(AiSocialMediaApplication.class, args);
@@ -24,7 +27,7 @@ public class AiSocialMediaApplication {
 //				try {
 //					Thread.sleep(60000); // Wait for 1 minute
 //				} catch (InterruptedException e) {
-//					Thread.currentThread().interrupt();
+//					Thread.currentThread().interrupt ();
 //					break;
 //				}
 //			}

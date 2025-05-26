@@ -12,7 +12,10 @@ import com.Coaios.AISocialMedia.repository.NotificationRepo;
 import com.Coaios.AISocialMedia.repository.PostRepo;
 import com.Coaios.AISocialMedia.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Iterator;
 import java.util.List;
@@ -66,6 +69,9 @@ public class AstaService {
         return comment;
     }
 
+    @Async
+    @Transactional
+    @Scheduled(fixedDelay = 40000)
     public void astaAction() {
         int[] choices = {1, 2, 3};
         int randomChoice = choices[ThreadLocalRandom.current().nextInt(choices.length)];
@@ -75,7 +81,7 @@ public class AstaService {
                 poster();
                 break;
             case 2:
-                poster();
+                commentPost();
                 break;
             case 3:
                 commentPost();

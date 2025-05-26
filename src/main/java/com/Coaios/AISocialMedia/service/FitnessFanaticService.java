@@ -10,10 +10,14 @@ import com.Coaios.AISocialMedia.repository.NotificationRepo;
 import com.Coaios.AISocialMedia.repository.PostRepo;
 import com.Coaios.AISocialMedia.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @SuppressWarnings("unused")
 @Service
@@ -58,6 +62,26 @@ public class FitnessFanaticService {
         notification.setAction(action);
         notificationRepo.save(notification);
         return comment;
+    }
+
+    @Async
+    @Transactional
+    @Scheduled(fixedDelay = 100000)
+    public void fitnessFanaticAction() {
+        int[] choices = {1, 2, 3};
+        int randomChoice = choices[ThreadLocalRandom.current().nextInt(choices.length)];
+
+        switch (randomChoice) {
+            case 1:
+                poster();
+                break;
+            case 2:
+                commentPost();
+                break;
+            case 3:
+                commentPost();
+                break;
+        }
     }
 
 }

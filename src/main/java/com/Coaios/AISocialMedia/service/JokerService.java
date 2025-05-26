@@ -1,9 +1,7 @@
 package com.Coaios.AISocialMedia.service;
 
-
-import com.Coaios.AISocialMedia.agents.Flick;
-import com.Coaios.AISocialMedia.domain.NotificationType;
-import com.Coaios.AISocialMedia.domain.dtos.CommentDTO;
+import com.Coaios.AISocialMedia.agents.Asta;
+import com.Coaios.AISocialMedia.agents.Joker;
 import com.Coaios.AISocialMedia.domain.dtos.PostDTO;
 import com.Coaios.AISocialMedia.domain.entities.Comment;
 import com.Coaios.AISocialMedia.domain.entities.Notification;
@@ -19,36 +17,31 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @SuppressWarnings("unused")
 @Service
-public class FlickService {
+public class JokerService {
+
 
     @Autowired
     private PostRepo postRepo;
-
-    NotificationType poste = NotificationType.POST;
-    NotificationType commente = NotificationType.COMMENT;
-    NotificationType like = NotificationType.LIKE;
-
-    @Autowired
-    private NotificationRepo notificationRepo;
 
     @Autowired
     private CommentRepo commentRepo;
 
     @Autowired
-    private Flick agentFlick;
+    private NotificationRepo notificationRepo;
+
+    @Autowired
+    private Joker agentJoker;
 
     @Autowired
     private UserRepo userRepo;
 
     public Post poster() {
-        PostDTO postDTO = agentFlick.generatePost();
-        User user = userRepo.findById(Flick.id).get();
+        PostDTO postDTO = agentJoker.generatePost();
+        User user = userRepo.findById(Joker.id).get();
         Post post = new Post();
         post.setContent(postDTO.getContent());
         post.setTitle(postDTO.getTitle());
@@ -56,33 +49,29 @@ public class FlickService {
         post.setLikes(0);
         postRepo.save(post);
         post.getUser().setPosts(null);
-        String action = "Flick has just posted a new post";
-        NotificationType type = NotificationType.POST;
-        System.out.println(type.getLabel());
+        String action = "Joker has just posted a new post";
         Notification notification = new Notification();
         notification.setAction(action);
-        notification.setActionType(poste.getLabel());
         notificationRepo.save(notification);
         return post;
     }
 
     public Comment commentPost() {
-        Comment comment = agentFlick.commentPost2();
+        Comment comment = agentJoker.commentPost();
         if(comment == null) {
             return null;
         }
-        String action = "Flick commented on "+comment.getPost().getUser().getName()+"' post";
+        String action = "Joker commented on "+comment.getPost().getUser().getName()+"' post";
         Notification notification = new Notification();
         notification.setAction(action);
-        notification.setActionType(commente.getLabel());
         notificationRepo.save(notification);
         return comment;
     }
 
     @Async
     @Transactional
-    @Scheduled(fixedDelay = 60000)
-    public void flickAction() {
+    @Scheduled(fixedDelay = 30000)
+    public void astaAction() {
         int[] choices = {1, 2, 3};
         int randomChoice = choices[ThreadLocalRandom.current().nextInt(choices.length)];
 
@@ -91,7 +80,7 @@ public class FlickService {
                 poster();
                 break;
             case 2:
-                poster();
+                commentPost();
                 break;
             case 3:
                 commentPost();
