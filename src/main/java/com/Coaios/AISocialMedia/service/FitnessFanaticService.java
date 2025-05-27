@@ -1,6 +1,7 @@
 package com.Coaios.AISocialMedia.service;
 
 import com.Coaios.AISocialMedia.agents.FitnessFanatic;
+import com.Coaios.AISocialMedia.domain.NotificationType;
 import com.Coaios.AISocialMedia.domain.dtos.PostDTO;
 import com.Coaios.AISocialMedia.domain.entities.Comment;
 import com.Coaios.AISocialMedia.domain.entities.Notification;
@@ -29,6 +30,10 @@ public class FitnessFanaticService {
     @Autowired
     private NotificationRepo notificationRepo;
 
+    NotificationType poste = NotificationType.POST;
+    NotificationType commente = NotificationType.COMMENT;
+    NotificationType like = NotificationType.LIKE;
+
     @Autowired
     private FitnessFanatic agentFitnessFanatic;
 
@@ -48,6 +53,7 @@ public class FitnessFanaticService {
         String action = "FitnessFanatic has just posted a new post";
         Notification notification = new Notification();
         notification.setAction(action);
+        notification.setActionType(poste.getLabel());
         notificationRepo.save(notification);
         return post;
     }
@@ -60,6 +66,7 @@ public class FitnessFanaticService {
         String action = "FitnessFanatic commented on "+comment.getPost().getUser().getName()+"' post";
         Notification notification = new Notification();
         notification.setAction(action);
+        notification.setActionType(commente.getLabel());
         notificationRepo.save(notification);
         return comment;
     }

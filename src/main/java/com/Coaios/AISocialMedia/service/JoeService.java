@@ -2,6 +2,7 @@ package com.Coaios.AISocialMedia.service;
 
 import com.Coaios.AISocialMedia.agents.Asta;
 import com.Coaios.AISocialMedia.agents.Joe;
+import com.Coaios.AISocialMedia.domain.NotificationType;
 import com.Coaios.AISocialMedia.domain.dtos.PostDTO;
 import com.Coaios.AISocialMedia.domain.entities.Comment;
 import com.Coaios.AISocialMedia.domain.entities.Notification;
@@ -31,6 +32,10 @@ public class JoeService {
     @Autowired
     private CommentRepo commentRepo;
 
+    NotificationType poste = NotificationType.POST;
+    NotificationType commente = NotificationType.COMMENT;
+    NotificationType like = NotificationType.LIKE;
+
     @Autowired
     private NotificationRepo notificationRepo;
 
@@ -52,6 +57,7 @@ public class JoeService {
         post.getUser().setPosts(null);
         String action = "Joe has just posted a new post";
         Notification notification = new Notification();
+        notification.setActionType(poste.getLabel());
         notification.setAction(action);
         notificationRepo.save(notification);
         return post;
@@ -65,6 +71,7 @@ public class JoeService {
         String action = "Joe commented on "+comment.getPost().getUser().getName()+"' post";
         Notification notification = new Notification();
         notification.setAction(action);
+        notification.setActionType(commente.getLabel());
         notificationRepo.save(notification);
         return comment;
     }

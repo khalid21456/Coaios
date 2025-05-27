@@ -88,7 +88,7 @@ public class FlickService {
 
         switch (randomChoice) {
             case 1:
-                poster();
+                commentPost();
                 break;
             case 2:
                 poster();

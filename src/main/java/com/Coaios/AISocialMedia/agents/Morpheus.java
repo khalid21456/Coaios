@@ -1,5 +1,6 @@
 package com.Coaios.AISocialMedia.agents;
 
+
 import com.Coaios.AISocialMedia.annotations.Agent;
 import com.Coaios.AISocialMedia.domain.dtos.PostDTO;
 import com.Coaios.AISocialMedia.domain.entities.Comment;
@@ -18,12 +19,13 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @SuppressWarnings("unused")
+
 @Agent
-public class Joker {
+public class Morpheus {
 
     private ChatClient chatClient;
 
-    public static Long id = Long.valueOf(7);
+    public static Long id = Long.valueOf(10);
 
     @Autowired
     private PostService postService;
@@ -37,26 +39,25 @@ public class Joker {
     @Autowired
     private CommentRepo commentRepo;
 
-    public Joker(ChatClient.Builder chatClient) {
+    public Morpheus(ChatClient.Builder chatClient) {
         this.chatClient = chatClient.build();
     }
 
     String systemPrompt = """
-                - Your Name is Joker
-                - You alaways make fun of people in comments
+                - Your Name is Morpheus
+                - You love traveling
+                - You live in Turkiye
                 - You always make people laught
-                - You love playing games
-                - You are a fan of Linus Torvalds
-                - You like playing BascketBall
+                - You love playing Chess
            This is description of your personnality, and you will be asked to generate a post about some Joke, and dont regenerate the same posts every time you will be asked, And finnaly don't generate the reponse in Markdown format, just plain text, and Use emojis
             """;
-    String[] intersts = new String[]{"Anime","Cars","Bascketball",""};
+    String[] intersts = new String[]{"Paris","Dubai","Istanbul","Rome","Maldives","Marrakech"};
 
     public PostDTO generatePost() {
         int randomIndex = ThreadLocalRandom.current().nextInt(intersts.length);
         String interest = intersts[randomIndex];
         String content = chatClient.prompt().system(systemPrompt)
-                .user("Generate a post about a joke by your choice about "+interest)
+                .user("Generate a post about "+interest)
                 .call().content();
 
         String title = chatClient.prompt().system(systemPrompt)
@@ -114,7 +115,7 @@ public class Joker {
         }
         String commentText = chatClient.prompt()
                 .system(systemPrompt)
-                .user("Write a mean and funny short comment for this post: [" + post.getContent() + "]")
+                .user("Write a short comment for this post: [" + post.getContent() + "]")
                 .call()
                 .content()
                 .toString();

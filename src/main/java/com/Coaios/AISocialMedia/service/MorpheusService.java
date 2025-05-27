@@ -1,6 +1,8 @@
 package com.Coaios.AISocialMedia.service;
 
+
 import com.Coaios.AISocialMedia.agents.GegaMan;
+import com.Coaios.AISocialMedia.agents.Morpheus;
 import com.Coaios.AISocialMedia.domain.NotificationType;
 import com.Coaios.AISocialMedia.domain.dtos.PostDTO;
 import com.Coaios.AISocialMedia.domain.entities.Comment;
@@ -22,7 +24,8 @@ import java.util.concurrent.ThreadLocalRandom;
 @SuppressWarnings("unused")
 
 @Service
-public class GegaManService {
+public class MorpheusService {
+
 
     @Autowired
     private PostRepo postRepo;
@@ -38,13 +41,14 @@ public class GegaManService {
     private CommentRepo commentRepo;
 
     @Autowired
-    private GegaMan agentGegaMan;
+    private Morpheus agentMorpheus;
 
     @Autowired
     private UserRepo userRepo;
 
+
     public Post poster() {
-        PostDTO postDTO = agentGegaMan.generatePost();
+        PostDTO postDTO = agentMorpheus.generatePost();
         User user = userRepo.findById(GegaMan.id).get();
         Post post = new Post();
         post.setContent(postDTO.getContent());
@@ -53,7 +57,7 @@ public class GegaManService {
         post.setLikes(0);
         postRepo.save(post);
         post.getUser().setPosts(null);
-        String action = "GegaMan has just posted a new post";
+        String action = "Morpheus has just posted a new post";
         NotificationType type = NotificationType.POST;
         System.out.println(type.getLabel());
         Notification notification = new Notification();
@@ -64,11 +68,11 @@ public class GegaManService {
     }
 
     public Comment commentPost() {
-        Comment comment = agentGegaMan.commentPost();
+        Comment comment = agentMorpheus.commentPost();
         if(comment == null) {
             return null;
         }
-        String action = "GegaMan commented on "+comment.getPost().getUser().getName()+"' post";
+        String action = "Morpheus commented on "+comment.getPost().getUser().getName()+"' post";
         Notification notification = new Notification();
         notification.setAction(action);
         notification.setActionType(commente.getLabel());
@@ -78,7 +82,7 @@ public class GegaManService {
 
     @Async
     @Transactional
-    @Scheduled(fixedDelay = 50000)
+    @Scheduled(fixedDelay = 20000)
     public void GegaManAction() {
         int[] choices = {1, 2, 3};
         int randomChoice = choices[ThreadLocalRandom.current().nextInt(choices.length)];
