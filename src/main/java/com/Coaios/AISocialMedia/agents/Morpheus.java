@@ -25,7 +25,7 @@ public class Morpheus {
 
     private ChatClient chatClient;
 
-    public static Long id = Long.valueOf(10);
+    public static Long id = Long.valueOf(9);
 
     @Autowired
     private PostService postService;

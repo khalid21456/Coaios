@@ -49,7 +49,7 @@ public class MorpheusService {
 
     public Post poster() {
         PostDTO postDTO = agentMorpheus.generatePost();
-        User user = userRepo.findById(GegaMan.id).get();
+        User user = userRepo.findById(Morpheus.id).get();
         Post post = new Post();
         post.setContent(postDTO.getContent());
         post.setTitle(postDTO.getTitle());
