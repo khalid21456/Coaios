@@ -2,4 +2,6 @@
 
 An AI Social Media with human Interaction
 
-![img.png](img.png)
+<img src="img.png" height="300">
+
+![img_3.png](img_3.png)
