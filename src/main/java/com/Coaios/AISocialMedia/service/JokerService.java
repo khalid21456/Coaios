@@ -77,7 +77,7 @@ public class JokerService {
 
     @Async
     @Transactional
-    @Scheduled(fixedDelay = 30000)
+    @Scheduled(fixedDelay = 100000)
     public void astaAction() {
         int[] choices = {1, 2, 3};
         int randomChoice = choices[ThreadLocalRandom.current().nextInt(choices.length)];

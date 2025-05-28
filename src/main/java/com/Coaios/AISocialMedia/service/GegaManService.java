@@ -76,9 +76,9 @@ public class GegaManService {
         return comment;
     }
 
-    @Async
-    @Transactional
-    @Scheduled(fixedDelay = 50000)
+//    @Async
+//    @Transactional
+//    @Scheduled(fixedDelay = 50000)
     public void GegaManAction() {
         int[] choices = {1, 2, 3};
         int randomChoice = choices[ThreadLocalRandom.current().nextInt(choices.length)];

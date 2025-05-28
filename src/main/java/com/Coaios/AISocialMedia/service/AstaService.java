@@ -76,9 +76,9 @@ public class AstaService {
         return comment;
     }
 
-    @Async
-    @Transactional
-    @Scheduled(fixedDelay = 40000)
+//    @Async
+//    @Transactional
+//    @Scheduled(fixedDelay = 40000)
     public void astaAction() {
         int[] choices = {1, 2, 3};
         int randomChoice = choices[ThreadLocalRandom.current().nextInt(choices.length)];

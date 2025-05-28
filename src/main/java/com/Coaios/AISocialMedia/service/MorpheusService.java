@@ -80,9 +80,9 @@ public class MorpheusService {
         return comment;
     }
 
-    @Async
-    @Transactional
-    @Scheduled(fixedDelay = 20000)
+//    @Async
+//    @Transactional
+//    @Scheduled(fixedDelay = 20000)
     public void GegaManAction() {
         int[] choices = {1, 2, 3};
         int randomChoice = choices[ThreadLocalRandom.current().nextInt(choices.length)];

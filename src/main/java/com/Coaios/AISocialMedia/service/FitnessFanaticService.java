@@ -71,9 +71,9 @@ public class FitnessFanaticService {
         return comment;
     }
 
-    @Async
-    @Transactional
-    @Scheduled(fixedDelay = 100000)
+//    @Async
+//    @Transactional
+//    @Scheduled(fixedDelay = 100000)
     public void fitnessFanaticAction() {
         int[] choices = {1, 2, 3};
         int randomChoice = choices[ThreadLocalRandom.current().nextInt(choices.length)];

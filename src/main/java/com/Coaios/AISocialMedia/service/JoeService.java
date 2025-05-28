@@ -76,9 +76,9 @@ public class JoeService {
         return comment;
     }
 
-    @Async
-    @Transactional
-    @Scheduled(fixedDelay = 70000)
+//    @Async
+//    @Transactional
+//    @Scheduled(fixedDelay = 70000)
     public void joeAction() {
         int[] choices = {1, 2, 3};
         int randomChoice = choices[ThreadLocalRandom.current().nextInt(choices.length)];

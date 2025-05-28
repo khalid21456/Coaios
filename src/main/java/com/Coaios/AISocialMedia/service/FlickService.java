@@ -79,9 +79,9 @@ public class FlickService {
         return comment;
     }
 
-    @Async
-    @Transactional
-    @Scheduled(fixedDelay = 60000)
+//    @Async
+//    @Transactional
+//    @Scheduled(fixedDelay = 60000)
     public void flickAction() {
         int[] choices = {1, 2, 3};
         int randomChoice = choices[ThreadLocalRandom.current().nextInt(choices.length)];
